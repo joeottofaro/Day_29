@@ -1,10 +1,14 @@
 {
     "amazon": {
-        "username": "name@domain.com",
-        "password": "(c29Rs)ykUB2cb"
+        "username": "shop@gmail.com",
+        "password": "6b0$7fVP(+JrFQ&vk"
     },
-    "ebay": {
-        "username": "name@domain.com",
-        "password": "YQ+6E*&pn6r$yc"
+    "facebook": {
+        "username": "social@gmail.com",
+        "password": "q*BqAc(A6!2H#O"
+    },
+    "google": {
+        "username": "web@gmail.com",
+        "password": "2&UbmpV12DT#!2S*"
     }
 }
