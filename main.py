@@ -68,6 +68,28 @@ def save():
             password_input.delete(0, END)
 
 
+# ---------------------------- SEARCH PASSWORD ------------------------------- #
+def find_password():
+    website = website_input.get()
+    try:
+        with open("data.json", "r") as data_file:
+            # Reading old data
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showinfo("Error", "Database is empty. Add some passwords.")
+
+    else:
+        if website in data:
+            messagebox.showinfo(f"{website}", f"Email: {data[website]['username']}\n"
+                                              f"Password: {data[website]['password']}")
+        else:
+            # Used display the website being searched for if not blank
+            if len(website) == 0:
+                messagebox.showinfo("Error", "Website not found.")
+            else:
+                messagebox.showinfo("Error", f"{website} not found.")
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
@@ -82,25 +104,28 @@ canvas.grid(row=0, column=1)
 
 # Label and Entry Setup
 website_label = Label(text="Website:")
-website_label.grid(row=1, column=0, )
+website_label.grid(row=1, column=0)
 
-website_input = Entry(width=35)
-website_input.grid(row=1, column=1, columnspan=2)
+website_input = Entry(width=32)
+website_input.grid(row=1, column=1)
 
 username_label = Label(text="Email/Username:")
 username_label.grid(row=2, column=0)
 
-username_input = Entry(width=35)
+username_input = Entry(width=32)
 username_input.insert(0, "name@domain.com")
-username_input.grid(row=2, column=1, columnspan=2)
+username_input.grid(row=2, column=1)
 
 password_label = Label(text="Password:")
 password_label.grid(row=3, column=0)
 
-password_input = Entry(width=17)
+password_input = Entry(width=32)
 password_input.grid(row=3, column=1)
 
 # Buttons
+
+search_button = Button(text="Search", width=15, command=find_password)
+search_button.grid(row=1, column=2)
 
 generate_button = Button(text="Generate Password", command=generate_password)
 generate_button.grid(row=3, column=2)
