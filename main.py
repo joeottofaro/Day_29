@@ -2,6 +2,7 @@ import webbrowser
 from tkinter import *
 from tkinter import messagebox
 from random import randint, choice, shuffle
+import json
 import pyperclip
 
 
@@ -37,17 +38,28 @@ def save():
     website = website_input.get()
     username = username_input.get()
     password = password_input.get()
+    new_data = {
+        website: {
+            "username": username,
+            "password": password
+        }
+    }
 
-    if website == "" or username == "" or password == "":
+    if len(website) == 0 or len(password) == 0:
         messagebox.showerror("Error", "Please fill all fields.")
     else:
-        is_ok = messagebox.askyesno(website, f"These are the details entered: \n Email: {username}"
-                                             f"\nPassword: {password} \n is it okay to save?")
-        if is_ok:
-            with open("data.txt", "a") as f:
-                f.write(f"{website} | {username} | {password}\n")
-                website_input.delete(0, END)
-                password_input.delete(0, END)
+        with open("data.json", "r") as data_file:
+            # Reading old data
+            data = json.load(data_file)
+            # Updating old data with new data
+            data.update(new_data)
+
+        with open("data.json", "w") as data_file:
+            # Saving updated data
+            json.dump(data, data_file, indent=4)
+
+            website_input.delete(0, END)
+            password_input.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
